@@ -54,13 +54,13 @@ class AndroidIdPlugin: FlutterPlugin, MethodCallHandler {
       }
 
       id = "35" + //we make this look like a valid IMEI
-              Build.BOARD + " "  + Build.BRAND + " "  +
-              abi + " "  + Build.DEVICE + " "  +
-              Build.DISPLAY + " "  + Build.HOST + " "  +
-              Build.ID + " "  + Build.MANUFACTURER + " "  +
-              Build.MODEL + " "  + Build.PRODUCT + " "  +
-              Build.TAGS + " "  + Build.TYPE + " "  +
-              Build.USER + " "  ; //13 digits
+              Build.BOARD + " | "  + Build.BRAND + " | "  +
+              abi + " | "  + Build.DEVICE + " | "  +
+              Build.DISPLAY + " | "  + Build.HOST + " | "  +
+              Build.ID + " | "  + Build.MANUFACTURER + " | "  +
+              Build.MODEL + " | "  + Build.PRODUCT + " | "  +
+              Build.TAGS + " | "  + Build.TYPE + " | "  +
+              Build.USER + " | "  ; //13 digits
     }
 
     return id
