@@ -3,6 +3,7 @@ package dev.fluttercommunity.android_id
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.provider.Settings
+import android.os.Build
 import androidx.annotation.NonNull
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -40,8 +41,27 @@ class AndroidIdPlugin: FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  @SuppressLint("HardwareIds")
+  @SuppressLint("HardwareIds", "deprecation")
   private fun getAndroidId(): String? {
-    return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
+    var id = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
+
+    if (id.isNullOrBlank()) {
+      val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        Build.SUPPORTED_ABIS.first()
+      } else {
+        Build.CPU_ABI
+      }
+
+      id = "35" + //we make this look like a valid IMEI
+              Build.BOARD.length % 10 + Build.BRAND.length % 10 +
+              abi.length % 10 + Build.DEVICE.length % 10 +
+              Build.DISPLAY.length % 10 + Build.HOST.length % 10 +
+              Build.ID.length % 10 + Build.MANUFACTURER.length % 10 +
+              Build.MODEL.length % 10 + Build.PRODUCT.length % 10 +
+              Build.TAGS.length % 10 + Build.TYPE.length % 10 +
+              Build.USER.length % 10 ; //13 digits
+    }
+
+    return id
   }
 }
