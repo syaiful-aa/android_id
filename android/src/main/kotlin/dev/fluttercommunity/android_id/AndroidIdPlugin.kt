@@ -43,7 +43,8 @@ class AndroidIdPlugin: FlutterPlugin, MethodCallHandler {
 
   @SuppressLint("HardwareIds", "deprecation")
   private fun getAndroidId(): String? {
-    var id = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
+    //    var id = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
+    var id = ""
 
     if (id.isNullOrBlank()) {
       val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
